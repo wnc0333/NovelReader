@@ -2,6 +2,7 @@
 using System.Windows;
 using NovelReader.ViewModel;
 using System.IO;
+using System.Windows.Input;
 
 namespace NovelReader.View
 {
@@ -18,13 +19,12 @@ namespace NovelReader.View
         {
             InitializeComponent();
 
-            
-
             // 绑定数据上下文
             this.DataContext = openFile;
 
             // 添加状态接收者
             openFile.AddIStatusRecipient(this);
+            
         }
 
         //状态通知
@@ -49,5 +49,15 @@ namespace NovelReader.View
             openFile.ReadFile(filePath,DisplayPanel);
         }
 
+        /// <summary>
+        /// 鼠标按下后拖动窗体
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DisplayPanel_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+            e.Handled = true;
+        }
     }
 }
