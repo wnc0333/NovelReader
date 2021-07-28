@@ -9,6 +9,7 @@
         Title="NovelReader" Height="450" Width="800" 
         x:Name="theMainWindow"
         WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" WindowStyle="None"
         Background="Transparent"
         >
 
@@ -21,6 +22,12 @@
 
         <!-- 右键菜单 -->
         <ContextMenu x:Key="RightContextMenu">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="打开" Click="MenuItem_Click" Width="auto"></Button>
+            </StackPanel>
+            <!-- 分割线 -->
+            <Separator></Separator>
+            
             <!-- 字体大小调节菜单 -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="字体大小：" />
@@ -32,19 +39,22 @@
                 <TextBlock
                     Text="{Binding Value, Source={x:Reference slder}, Mode=OneWay, Converter={StaticResource fontSizeConverter}}"/>
             </StackPanel>
+            
             <!-- 分割线 -->
             <Separator></Separator>
+           
             <!-- 不透明度调节菜单 -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="不透明度：" />
-                <Slider Value="{Binding Opacity, Source={x:Reference DisplayPanel}, Mode=TwoWay}" 
+                <Slider Value="{Binding Opacity, Source={x:Reference theMainWindow}, Mode=TwoWay}" 
                                 Maximum="1" Minimum="0"  
                                 SmallChange="0.1" LargeChange="0.2"
                                 Width="100">
                 </Slider>
-                <TextBlock Text="{Binding Opacity, Source={x:Reference DisplayPanel},Converter={StaticResource doublePrecisionConverter}}" />
+                <TextBlock Text="{Binding Opacity, Source={x:Reference theMainWindow},Converter={StaticResource doublePrecisionConverter}}" />
             </StackPanel>
         </ContextMenu>
+
     </Window.Resources>
     
     <DockPanel>
@@ -78,12 +88,12 @@
                 <!-- 不透明度调节菜单 -->
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="不透明度：" />
-                    <Slider Value="{Binding Opacity, ElementName=DisplayPanel, Mode=TwoWay}" 
+                    <Slider Value="{Binding Opacity, ElementName=theMainWindow, Mode=TwoWay}" 
                                 Maximum="1" Minimum="0"  
                                 SmallChange="0.1" LargeChange="0.2"
                                 Width="100">
                     </Slider>
-                    <TextBlock Text="{Binding Opacity, ElementName=DisplayPanel,Converter={StaticResource doublePrecisionConverter}}" />
+                    <TextBlock Text="{Binding Opacity, ElementName=theMainWindow,Converter={StaticResource doublePrecisionConverter}}" />
                 </StackPanel>
             </StatusBarItem>
             
@@ -102,9 +112,9 @@
             ScrollViewer.CanContentScroll="True" VirtualizingPanel.IsVirtualizing="True"
             VirtualizingPanel.VirtualizationMode="Recycling"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-            SelectionMode="Extended" Template="{StaticResource ListBoxControlTemplate1}" 
+            SelectionMode="Single" Template="{StaticResource ListBoxControlTemplate1}" 
             ContextMenu="{StaticResource RightContextMenu}"
-            Opacity="0.4">
+            PreviewMouseLeftButtonDown="DisplayPanel_PreviewMouseLeftButtonDown">
 
             <!--条目模板-->
             <ListBox.ItemTemplate>
