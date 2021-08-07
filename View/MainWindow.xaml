@@ -20,6 +20,9 @@
         <!-- double值精度转换器 -->
         <model:DoublePrecisionConverter x:Key="doublePrecisionConverter"/>
 
+        <!-- 背景色 -->
+        <SolidColorBrush x:Key="backgroundColor" Color="Orange" Opacity="0.5"></SolidColorBrush>
+        
         <!-- 右键菜单 -->
         <ContextMenu x:Key="RightContextMenu">
             <StackPanel Orientation="Horizontal">
@@ -43,9 +46,9 @@
             <!-- 分割线 -->
             <Separator></Separator>
            
-            <!-- 不透明度调节菜单 -->
+            <!-- 全局不透明度调节菜单 -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="不透明度：" />
+                <TextBlock Text="全局不透明度：" />
                 <Slider Value="{Binding Opacity, Source={x:Reference theMainWindow}, Mode=TwoWay}" 
                                 Maximum="1" Minimum="0"  
                                 SmallChange="0.1" LargeChange="0.2"
@@ -53,6 +56,21 @@
                 </Slider>
                 <TextBlock Text="{Binding Opacity, Source={x:Reference theMainWindow},Converter={StaticResource doublePrecisionConverter}}" />
             </StackPanel>
+
+            <!-- 分割线 -->
+            <Separator></Separator>
+            
+            <!-- 背景不透明度调节菜单 -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="背景不透明度：" />
+                <Slider Value="{Binding Background.Opacity, Source={x:Reference DisplayPanel}, Mode=TwoWay}" 
+                                Maximum="1" Minimum="0"  
+                                SmallChange="0.1" LargeChange="0.2"
+                                Width="100">
+                </Slider>
+                <TextBlock Text="{Binding Background.Opacity, Source={x:Reference DisplayPanel},Converter={StaticResource doublePrecisionConverter}}" />
+            </StackPanel>
+            
         </ContextMenu>
 
     </Window.Resources>
@@ -96,13 +114,23 @@
                     <TextBlock Text="{Binding Opacity, ElementName=theMainWindow,Converter={StaticResource doublePrecisionConverter}}" />
                 </StackPanel>
             </StatusBarItem>
-            
+
+            <StatusBarItem>
+                <!-- 背景不透明度调节菜单 -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="背景不透明度：" />
+                    <Slider Value="{Binding Background.Opacity, ElementName=DisplayPanel, Mode=TwoWay}" 
+                                Maximum="1" Minimum="0"  
+                                SmallChange="0.1" LargeChange="0.2"
+                                Width="100">
+                    </Slider>
+                    <TextBlock Text="{Binding Background.Opacity, ElementName=DisplayPanel,Converter={StaticResource doublePrecisionConverter}}" />
+                </StackPanel>
+            </StatusBarItem>
+
             <StatusBarItem HorizontalAlignment="Right">
                 <TextBlock x:Name="statusControl" />
             </StatusBarItem>            
-            
-            
-            
             
         </StatusBar>
 
@@ -114,8 +142,11 @@
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
             SelectionMode="Single" Template="{StaticResource ListBoxControlTemplate1}" 
             ContextMenu="{StaticResource RightContextMenu}"
-            PreviewMouseLeftButtonDown="DisplayPanel_PreviewMouseLeftButtonDown">
+            PreviewMouseLeftButtonDown="DisplayPanel_PreviewMouseLeftButtonDown"
+            Background="{StaticResource backgroundColor}">
 
+            
+            
             <!--条目模板-->
             <ListBox.ItemTemplate>
                 <DataTemplate>
