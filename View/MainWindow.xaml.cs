@@ -59,5 +59,11 @@ namespace NovelReader.View
             this.DragMove();
             e.Handled = true;
         }
+
+        //当鼠标双击时，自动隐藏窗体边框，自动将背景设为透明
+        private void DisplayPanel_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
