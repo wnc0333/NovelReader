@@ -64,7 +64,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="背景不透明度：" />
                 <Slider Value="{Binding Background.Opacity, Source={x:Reference DisplayPanel}, Mode=TwoWay}" 
-                                Maximum="1" Minimum="0"  
+                                Maximum="1" Minimum="0.01"  
                                 SmallChange="0.1" LargeChange="0.2"
                                 Width="100">
                 </Slider>
@@ -120,7 +120,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="背景不透明度：" />
                     <Slider Value="{Binding Background.Opacity, ElementName=DisplayPanel, Mode=TwoWay}" 
-                                Maximum="1" Minimum="0"  
+                                Maximum="1" Minimum="0.01"  
                                 SmallChange="0.1" LargeChange="0.2"
                                 Width="100">
                     </Slider>
