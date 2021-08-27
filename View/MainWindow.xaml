@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NovelReader"
         xmlns:model="clr-namespace:NovelReader.Model"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="NovelReader" Height="450" Width="800" 
         x:Name="theMainWindow"
@@ -52,7 +53,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="全局不透明度：" />
                 <Slider Value="{Binding Opacity, Source={x:Reference theMainWindow}, Mode=TwoWay}" 
-                                Maximum="1" Minimum="0"  
+                                Maximum="1" Minimum="0.01"  
                                 SmallChange="0.1" LargeChange="0.2"
                                 Width="100">
                 </Slider>
@@ -71,6 +72,14 @@
                                 Width="100">
                 </Slider>
                 <TextBlock Text="{Binding Background.Opacity, Source={x:Reference DisplayPanel},Converter={StaticResource doublePrecisionConverter}}" />
+            </StackPanel>
+
+            <!-- 分割线 -->
+            <Separator></Separator>
+
+            <!-- 自动隐蔽菜单 -->
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Content="自动隐蔽" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked"></CheckBox>
             </StackPanel>
             
         </ContextMenu>
@@ -146,6 +155,7 @@
             ContextMenu="{StaticResource RightContextMenu}"
             PreviewMouseLeftButtonDown="DisplayPanel_PreviewMouseLeftButtonDown"
             PreviewMouseDoubleClick="DisplayPanel_PreviewMouseDoubleClick"
+            MouseLeave="DisplayPanel_MouseLeave"
             Background="{StaticResource backgroundColor}"
             BorderThickness="0">
 
